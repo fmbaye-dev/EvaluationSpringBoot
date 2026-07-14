@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: GestionEtudiant
+
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DBE_USER}
+    password: ${DBE_PWD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: create
