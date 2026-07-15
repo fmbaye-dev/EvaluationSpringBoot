@@ -38,19 +38,23 @@ public class EtudiantService {
      }
 
      public void supprimer(Long id){
+
           etudiantRepository.deleteById(id);
      }
 
      public Optional <Etudiant> recherche(Long id){
+
           return etudiantRepository.findById(id);
      }
 
      public Optional<Etudiant> rechercheParMatricule(String matricule){
+
           return etudiantRepository.findByMatricule(matricule);
      }
 
 
      public Optional<Etudiant> rechercheParEmail(String email){
+
           return etudiantRepository.findByEmail(email);
      }
 }

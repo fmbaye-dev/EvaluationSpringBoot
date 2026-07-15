@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class EtudiantController {
      private final EtudiantService etudiantService;
 
      @GetMapping
+     @SecurityRequirement(name = "bearerAuth")
      @Operation(
              summary = "Liste des étudiants",
              description = "Retourne la liste de tous les étudiants"
@@ -40,6 +42,7 @@ public class EtudiantController {
      }
 
      @GetMapping("/{id}")
+     @SecurityRequirement(name = "bearerAuth")
      @Operation(
              summary = "Rechercher un étudiant",
              description = "Retourne un étudiant selon son identifiant"
@@ -64,6 +67,7 @@ public class EtudiantController {
      }
 
      @PostMapping
+     @SecurityRequirement(name = "bearerAuth")
      @Operation(
              summary = "Ajouter un étudiant",
              description = "Permet de créer un nouvel étudiant"
@@ -79,7 +83,8 @@ public class EtudiantController {
           }
 
           if (etudiantService.rechercheParMatricule(etudiant.getMatricule()).isPresent()){
-               return ResponseEntity.badRequest().body("Matricule déjà existant");
+               return ResponseEntity.status(HttpStatus.CONFLICT)
+                       .body("Matricule déjà existant");
           }
 
           if (etudiant.getNom() == null || etudiant.getNom().isBlank()) {
@@ -104,6 +109,7 @@ public class EtudiantController {
      }
 
      @PutMapping("/{id}")
+     @SecurityRequirement(name = "bearerAuth")
      @Operation(
              summary = "Modifier un étudiant",
              description = "Met à jour les informations d'un étudiant existant"
@@ -167,6 +173,7 @@ public class EtudiantController {
      }
 
      @DeleteMapping("/{id}")
+     @SecurityRequirement(name = "bearerAuth")
      @Operation(
              summary = "Supprimer un étudiant",
              description = "Supprime un étudiant selon son identifiant"
